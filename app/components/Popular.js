@@ -1,5 +1,25 @@
 import React, { Component } from 'react';
 
+function LanguagesNav ({selectedLanguage, onUpdateLanguage}) {
+    const languages = ['All', 'Javascript', 'Ruby', 'Java', 'Python', 'CSS']
+
+    return (
+        <ul className='flex-center'>
+            {languages.map((l, index) => (
+                <li key={index}>
+                    <button className='btn-clear nav-link'
+                        style={l === selectedLanguage ? { color: 'rgb(187, 46, 31)' } : null}
+                        //onClick is function definition and not invocation
+                        onClick={() => onUpdateLanguage(l)}
+                    >
+                        {l}
+                    </button>
+                </li>
+            ))}
+        </ul>
+    )
+}
+
 class Popular extends Component {
     constructor(props) {
         super(props)
@@ -16,22 +36,13 @@ class Popular extends Component {
     }
 
     render () {
-        const languages = ['All', 'Javascript', 'Ruby', 'Java', 'Python', 'CSS']
+        const { selectedLanguage } = this.state
 
         return (
-            <ul className='flex-center'>
-                {languages.map((l, index) => (
-                    <li key={index}>
-                        <button className='btn-clear nav-link'
-                        style={l === this.state.selectedLanguage ? {color:'rgb(187, 46, 31)'}:null}
-                        //onClick is function definition and not invocation
-                        onClick={() => this.updateLanguage(l)}
-                        >
-                            {l}
-                        </button>
-                    </li>
-                ))}
-            </ul>
+
+            <React.Fragment>
+                <LanguagesNav selectedLanguage={selectedLanguage} onUpdateLanguage={this.updateLanguage}></LanguagesNav>
+            </React.Fragment>
         )
     }
 }
